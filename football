@@ -28,7 +28,42 @@ Main:AddButton({
 	    end})
 
     
+  Main:AddSlider({
+	Name = "Mag",
+	Min = 2,
+	Max = 80,
+	Default = 2,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Power",
+	Callback = function(v)
+if not getgenv().MTAPIMutex then loadstring(game:HttpGet("https://raw.githubusercontent.com/KikoTheDon/MT-Api-v2/main/__source/mt-api%20v2.lua", true))() end
 
+local plr = game.Players.LocalPlayer
+local hook = nil
+local enabled = false
+
+plr.Character["Left Arm"]:AddPropertyEmulator("Size") -- fake size
+plr.Character["Right Arm"]:AddPropertyEmulator("Size") -- fake size
+
+        plr.Character["Left Arm"]:AddPropertyEmulator("Size") -- fake size
+        plr.Character["Right Arm"]:AddPropertyEmulator("Size") -- fake size
+        
+        for i,v in pairs(getconnections(plr.Character["Left Arm"]:GetPropertyChangedSignal("Size"))) do
+            v.Function = error
+            v:Disable() -- disable property changed
+        end
+        for i,v in pairs(getconnections(plr.Character["Right Arm"]:GetPropertyChangedSignal("Size"))) do
+            v.Function = error
+            v:Disable() -- disable property changed
+        end
+
+        plr.Character["Left Arm"].Size = Vector3.new(3, (v), 1)
+        plr.Character["Right Arm"].Size = Vector3.new(3, (v), 1)
+        plr.Character["Left Arm"].Massless = true
+        plr.Character["Right Arm"].Massless = true
+        enabled = true
+	end})
 
 Main:AddButton({
 	Name = "Auto Catch",
@@ -131,7 +166,8 @@ if not getgenv().MTAPIMutex then if getgenv().MTAPIMutex~=nil then return end;lo
 	end})
 	
 	
-
+  
+  
 	
 	Main:AddButton({
 	Name = "Rejoin",
